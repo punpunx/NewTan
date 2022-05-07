@@ -407,7 +407,50 @@ end)
 Section:NewButton("Dont press This", "ButtonInfo", function()
     game.Players.LocalPlayer:Kick("You has Fucked By Uri")
 end)
-
+local Tab = Window:NewTab("Esp")
+local Section = Tab:NewSection("FE")
+Section:NewButton("esp", "ButtonInfo", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Tanne/main/esp", true))()
+end)
+local Tab = Window:NewTab("Skill")
+local Section = Tab:NewSection("Must Equiq DevilFruit")
+local Section = Tab:NewSection("Light")
+Section:NewToggle("AutoFarmDF", "ToggleInfo", function(state)
+    if state then
+        _G.cdl = true
+while _G.cdl do wait()
+    pcall(function()
+game.Players.LocalPlayer.Character.Light.Event:FireServer("BarrageLight")
+game.Players.LocalPlayer.Character.Light.Event:FireServer("RainLight")
+end)
+end
+    else
+        _G.cdl = false
+while _G.cdl do wait()
+    pcall(function()
+game.Players.LocalPlayer.Character.Light.Event:FireServer("BarrageLight")
+game.Players.LocalPlayer.Character.Light.Event:FireServer("RainLight")
+end)
+end
+    end
+end)
+Section:NewToggle("Skill R", "ToggleInfo", function(state)
+    if state then
+        _G.cdl = true
+while _G.cdl do wait()
+    pcall(function()
+game.Players.LocalPlayer.Character.Light.Event:FireServer("RainLight")
+end)
+end
+    else
+        _G.cdl = false
+while _G.cdl do wait()
+    pcall(function()
+game.Players.LocalPlayer.Character.Light.Event:FireServer("RainLight")
+end)
+end
+    end
+end)
 
 
 

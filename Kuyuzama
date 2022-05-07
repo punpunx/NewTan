@@ -457,7 +457,7 @@ Section:NewToggle("E", "ToggleInfo", function(state)
         _G.nocdq = true
 while _G.nocdq do wait()
     pcall(function()
-   workspace.Ignorelist.KURAMATOX.Bisento.Client.RemoteEvent:FireServer("Quake")
+   game.Players.LocalPlayer.Character.Bisento.Client.RemoteEvent:FireServer("Quake")
 end)
 end
     else

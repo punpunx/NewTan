@@ -464,9 +464,8 @@ end
         _G.nocdq = false
 while _G.nocdq do wait()
     pcall(function()
-   workspace.Ignorelist.KURAMATOX.Bisento.Client.RemoteEvent:FireServer("Quake")
+   game.Players.LocalPlayer.Character.Bisento.Client.RemoteEvent:FireServer("Quake")
 end)
-end
     end
+end
 end)
-

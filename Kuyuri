@@ -2,7 +2,7 @@ print("Hello world!")
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("URI HUB", "DarkTheme")
 local Tab = Window:NewTab("Farm")
-local Section = Tab:NewSection("Farm")
+local Section = Tab:NewSection("Farm Select")
 Section:NewToggle("Sand", "ToggleInfo", function(state)
 	if state then
 		_G.pun = true
@@ -15,7 +15,7 @@ Section:NewToggle("Sand", "ToggleInfo", function(state)
 						game:GetService'VirtualUser':CaptureController()
 						game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
 						game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-						game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+						game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
 
 					end
 				end
@@ -33,7 +33,7 @@ Section:NewToggle("Sand", "ToggleInfo", function(state)
 						game:GetService'VirtualUser':CaptureController()
 						game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
 						game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-						game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+						game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
 
 					end
 				end
@@ -53,7 +53,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.RedForest:GetDescendants()) 
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -71,7 +71,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.RedForest:GetDescendants()) 
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -91,7 +91,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.Mushroom:GetDescendants()) d
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -109,7 +109,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.Mushroom:GetDescendants()) d
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -129,7 +129,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.SkyPiea:GetDescendants()) do
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -147,7 +147,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.SkyPiea:GetDescendants()) do
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -167,7 +167,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.Snow:GetDescendants()) do
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -185,7 +185,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.Snow:GetDescendants()) do
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -205,7 +205,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.ForestIsland:GetDescendants(
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -223,7 +223,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.ForestIsland:GetDescendants(
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -243,7 +243,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.FirstIsland:GetDescendants()
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -261,7 +261,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy.FirstIsland:GetDescendants()
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
                 
                 end
              end
@@ -270,3 +270,37 @@ for i,v in pairs(game:GetService("Workspace").Enemy.FirstIsland:GetDescendants()
 
     end
 end)
+local Tab = Window:NewTab("Weapon")
+local Section = Tab:NewSection("Weapon Select")
+Section:NewToggle("Equiq", "ToggleInfo", function(state)
+    if state then
+        _G.wep = true
+while _G.wep do wait(0)
+    pcall(function()
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Katana)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Scythe)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.DarkScythe)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Pole)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Excalibur)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Muramasa)
+    end)
+    end
+    
+    else
+        _G.wep = false
+while _G.wep do wait(0)
+    pcall(function()
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Katana)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Scythe)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.DarkScythe)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Pole)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Excalibur)
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Muramasa)
+    end)
+    end
+    
+    end
+end)
+

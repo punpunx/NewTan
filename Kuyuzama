@@ -157,9 +157,7 @@ end)
 Section:NewButton("Dont press This", "ButtonInfo", function()
     game.Players.LocalPlayer:Kick("You has Fucked By Uri")
 end)
-Section:NewKeybind("RightAlt", "KeybindInfo", Enum.KeyCode.F, function()
-	Library:ToggleUI()
-end)
+
 local Tab = Window:NewTab("MISC")
 local Section = Tab:NewSection("Bring Fruit Frome Anther Backpack")
 Section:NewToggle("Bring Fruit", "ToggleInfo", function(asvsdf)
@@ -176,4 +174,8 @@ for i,v in pairs(game:GetService("Players"):GetDescendants()) do
 end
 end
 end
+end)
+
+Section:NewKeybind("RightAlt", "KeybindInfo", Enum.KeyCode.L, function()
+	Library:ToggleUI()
 end)

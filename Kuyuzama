@@ -28,7 +28,7 @@ for i,v in pairs(game:GetService("Workspace").Enemy:FindFirstChild(Mob):GetDesce
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Combat)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
                 
                 end
              end
@@ -63,22 +63,25 @@ end
 end
 end)
 
-local Tab = Window:NewTab("Admin")
-local Section = Tab:NewSection("FE Admin")
-Section:NewButton("Admin1", "ButtonInfo", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+local Section = Tab:NewSection("Inv Change")
+
+local punlist = {}
+local punew = nil
+for i,v in pairs(game:GetService("Players").LocalPlayer.Inv:GetChildren()) do
+table.insert(punlist, v.Name)
+end
+
+
+Section:NewDropdown("Select", "", punlist , function(pledf)
+    punew = pledf
+    if punew then
+        pcall(function()
+    game:GetService("ReplicatedStorage").Remote.Inv:FireServer(punew)
 end)
-Section:NewButton("Admin2", "ButtonInfo", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Adri/main/Uri", true))()
+end
 end)
-Section:NewButton("Dont press This", "ButtonInfo", function()
-    game.Players.LocalPlayer:Kick("You has Fucked By Uri")
-end)
-local Tab = Window:NewTab("Esp")
-local Section = Tab:NewSection("FE")
-Section:NewButton("esp", "ButtonInfo", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Tanne/main/esp", true))()
-end)
+
+
 local Tab = Window:NewTab("Skill")
 local Section = Tab:NewSection("Must Equiq DevilFruit")
 local Section = Tab:NewSection("Light")
@@ -136,3 +139,25 @@ end)
     end
 end
 end)
+
+local Tab = Window:NewTab("Esp")
+local Section = Tab:NewSection("FE")
+Section:NewButton("esp", "ButtonInfo", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Tanne/main/esp", true))()
+end)
+
+local Tab = Window:NewTab("Admin")
+local Section = Tab:NewSection("FE Admin")
+Section:NewButton("Admin1", "ButtonInfo", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+Section:NewButton("Admin2", "ButtonInfo", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Adri/main/Uri", true))()
+end)
+Section:NewButton("Dont press This", "ButtonInfo", function()
+    game.Players.LocalPlayer:Kick("You has Fucked By Uri")
+end)
+
+
+
+

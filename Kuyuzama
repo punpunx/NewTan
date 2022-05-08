@@ -215,18 +215,20 @@ end)
 local Section = Tab:NewSection("Pole")
 Section:NewToggle("E", "ToggleInfo", function(state)
     if state then
-        G.skillcd = true
-   while _G.skillcd do wait(0.3)
-       pcall(function()
+        _G.skillcd = true
+while _G.skillcd do wait(0.3)
+    pcall(function()
+
 game.Players.LocalPlayer.Character.Pole.Client.RemoteEvent:FireServer("Pole")
-end) 
+end)
 end
     else
-        G.skillcd = false
-   while _G.skillcd do wait(0.3)
-       pcall(function()
+       _G.skillcd = false
+while _G.skillcd do wait(0.3)
+    pcall(function()
+
 game.Players.LocalPlayer.Character.Pole.Client.RemoteEvent:FireServer("Pole")
-end) 
+end)
 end
     end
 end)

@@ -36,7 +36,6 @@ for i,v in pairs(game:GetService("Workspace").Enemy:FindFirstChild(Mob):GetDesce
     end
 end
 end)
-local Tab = Window:NewTab("Weapon")
 local Section = Tab:NewSection("Weapon Select")
 local Weaponlist = {}
 local Weapon = nil

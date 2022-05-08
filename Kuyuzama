@@ -197,18 +197,18 @@ end)
 local Section = Tab:NewSection("Excalibur")
 Section:NewToggle("E", "ToggleInfo", function(state)
     if state then
-        G.skillcd = true
-   while _G.skillcd do wait(0.3)
-       pcall(function()
+        _G.skillcd = true
+while _G.skillcd do wait(0.3)
+    pcall(function()
 game.Players.LocalPlayer.Character.Excalibur.Client.RemoteEvent:FireServer("Excalibur")
-end) 
+end)
 end
     else
-        G.skillcd = false
-   while _G.skillcd do wait(0.3)
-       pcall(function()
+        _G.skillcd = false
+while _G.skillcd do wait(0.3)
+    pcall(function()
 game.Players.LocalPlayer.Character.Excalibur.Client.RemoteEvent:FireServer("Excalibur")
-end) 
+end)
 end
     end
 end)
@@ -250,7 +250,7 @@ end)
 
 local Tab = Window:NewTab("MISC")
 local Section = Tab:NewSection("Bring Fruit Frome Anther Backpack")
-Section:NewToggle("Bring Fruit", "ToggleInfo", function(asvsdf)
+Section:NewToggle("Auto Bring Fruit", "ToggleInfo", function(asvsdf)
     autobring = asvsdf
 end)
 
@@ -265,6 +265,25 @@ end
 end
 end
 end)
+
+local Section = Tab:NewSection("Bring Scroll")
+Section:NewToggle("Auto Bring Scroll", "ToggleInfo", function(asvsdfe)
+    autobringe = asvsdfe
+end)
+
+spawn(function()
+    if autobringe then
+    while wait() do
+for i,v in pairs(game:GetService("Players"):GetDescendants()) do
+    if v.Name == 'Scroll' then
+    v.Parent = game.Players.LocalPlayer.Backpack
+    end
+end
+end
+end
+end)
+
+
 
 Section:NewKeybind("RightAlt", "KeybindInfo", Enum.KeyCode.L, function()
 	Library:ToggleUI()

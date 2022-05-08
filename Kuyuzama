@@ -2,272 +2,39 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("UZAMA กังกัง HUB", "DarkTheme")
 local Tab = Window:NewTab("Farm")
 local Section = Tab:NewSection("Farm Select")
-Section:NewToggle("Sand", "ToggleInfo", function(state)
-	if state then
-		_G.pun = true
-		while _G.pun do wait(0.1)
-			pcall(function()
-				local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-				for i,v in pairs(game:GetService("Workspace").Enemy.Sahara:GetDescendants()) do 
-					if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-						char.CFrame = v.CFrame * CFrame.new(0,0,3)
-						game:GetService'VirtualUser':CaptureController()
-						game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-						game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-						game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
 
-					end
-				end
-			end)
-		end
+local Moblist = {}
+local Mob = nil
+for i,v in pairs(game:GetService("Workspace").Enemy:GetChildren()) do
+   table.insert(Moblist, v.Name)
+end
 
-	else
-		_G.pun = false
-		while _G.pun do wait(0.1)
-			pcall(function()
-				local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-				for i,v in pairs(game:GetService("Workspace").Enemy.Sahara:GetDescendants()) do 
-					if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-						char.CFrame = v.CFrame * CFrame.new(0,0,3)
-						game:GetService'VirtualUser':CaptureController()
-						game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-						game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-						game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-
-					end
-				end
-			end)
-		end
-	end
+Section:NewDropdown("select mob", " ", Moblist, function(currentOption2)
+    Mob = currentOption2
 end)
-Section:NewToggle("RedForest", "ToggleInfo", function(state)
-    if state then
-        _G.pun = true
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.RedForest:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
 
-    else
-        _G.pun = false
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.RedForest:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-    end
+Section:NewToggle("Farm", "ToggleInfo", function(state)
+ punpun = state
 end)
-Section:NewToggle("Mushroom", "ToggleInfo", function(state)
-    if state then
-        _G.pun = true
-while _G.pun do wait(0.1)
-    pcall(function()
+spawn(function()
+while wait() do
+    if punpun then
+        pcall(function()
+    
 local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.Mushroom:GetDescendants()) do 
+for i,v in pairs(game:GetService("Workspace").Enemy:FindFirstChild(Mob):GetDescendants()) do 
     if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
         char.CFrame = v.CFrame * CFrame.new(0,0,3)
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
         game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Combat)
                 
                 end
              end
     end)
-     end
-
-    else
-        _G.pun = false
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.Mushroom:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
     end
-end)
-Section:NewToggle("SkyPiea", "ToggleInfo", function(state)
-    if state then
-        _G.pun = true
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.SkyPiea:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-
-    else
-        _G.pun = false
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.SkyPiea:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-    end
-end)
-Section:NewToggle("Snow", "ToggleInfo", function(state)
-    if state then
-        _G.pun = true
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.Snow:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-
-    else
-        _G.pun = false
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.Snow:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-    end
-end)
-Section:NewToggle("ForestIsland", "ToggleInfo", function(state)
-    if state then
-        _G.pun = true
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.ForestIsland:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-
-    else
-       _G.pun = false
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.ForestIsland:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-    end
-end)
-Section:NewToggle("FirstIsland", "ToggleInfo", function(state)
-    if state then
-        _G.pun = true
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.FirstIsland:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-
-    else
-        _G.pun = false
-while _G.pun do wait(0.1)
-    pcall(function()
-local char = game.Players.LocalPlayer.Character.HumanoidRootPart
-for i,v in pairs(game:GetService("Workspace").Enemy.FirstIsland:GetDescendants()) do 
-    if v.Name == 'HumanoidRootPart' and v.Parent.Humanoid.Health > 0 then
-        char.CFrame = v.CFrame * CFrame.new(0,0,3)
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(686, 352))
-        game:GetService("Players").LocalPlayer.Backpack.Haki.Haki:FireServer("Haki")
-        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.weap)
-                
-                end
-             end
-    end)
-     end
-
-    end
+end
 end)
 local Tab = Window:NewTab("Weapon")
 local Section = Tab:NewSection("Weapon Select")
@@ -370,3 +137,5 @@ end)
     end
 end
 end)
+
+

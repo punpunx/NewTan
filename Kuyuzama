@@ -125,7 +125,7 @@ local Section = Tab:NewSection("Bisento")
 Section:NewToggle("E", "ToggleInfo", function(state)
     if state then
         _G.nocdq = true
-while _G.nocdq do wait()
+while _G.nocdq do wait(0.3)
     pcall(function()
    game.Players.LocalPlayer.Character.Bisento.Client.RemoteEvent:FireServer("Quake")
 end)
@@ -140,6 +140,96 @@ end)
 end
 end)
 
+local Section = Tab:NewSection("Dark Scythe")
+Section:NewToggle("E", "ToggleInfo", function(state)
+    if state then
+        _G.skillcd = true
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character["Dark Scythe"].Client.RemoteEvent:FireServer("DarkScythe")
+end) 
+end
+    else
+        _G.skillcd = false
+   while _G.skillcd do wait(0.1)
+       pcall(function()
+game.Players.LocalPlayer.Character["Dark Scythe"].Client.RemoteEvent:FireServer("DarkScythe")
+end) 
+end
+    end
+end)
+local Section = Tab:NewSection("Muramasa")
+Section:NewToggle("E", "ToggleInfo", function(state)
+    if state then
+        _G.skillcd = true
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character.Muramasa.Client.RemoteEvent:FireServer("Muramasa")
+end) 
+end
+    else
+        _G.skillcd = false
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character.Muramasa.Client.RemoteEvent:FireServer("Muramasa")
+end) 
+end
+    end
+end)
+local Section = Tab:NewSection("Scythe")
+Section:NewToggle("E", "ToggleInfo", function(state)
+    if state then
+       _G.skillcd = true
+while _G.skillcd do wait(0.3)
+    pcall(function()
+game.Players.LocalPlayer.Character.Scythe.Client.RemoteEvent:FireServer("Scythe")
+end)
+end
+    else
+         _G.skillcd = false
+while _G.skillcd do wait(0.3)
+    pcall(function()
+game.Players.LocalPlayer.Character.Scythe.Client.RemoteEvent:FireServer("Scythe")
+end)
+end
+    end
+end)
+local Section = Tab:NewSection("Excalibur")
+Section:NewToggle("E", "ToggleInfo", function(state)
+    if state then
+        G.skillcd = true
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character.Excalibur.Client.RemoteEvent:FireServer("Excalibur")
+end) 
+end
+    else
+        G.skillcd = false
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character.Excalibur.Client.RemoteEvent:FireServer("Excalibur")
+end) 
+end
+    end
+end)
+local Section = Tab:NewSection("Pole")
+Section:NewToggle("E", "ToggleInfo", function(state)
+    if state then
+        G.skillcd = true
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character.Pole.Client.RemoteEvent:FireServer("Pole")
+end) 
+end
+    else
+        G.skillcd = false
+   while _G.skillcd do wait(0.3)
+       pcall(function()
+game.Players.LocalPlayer.Character.Pole.Client.RemoteEvent:FireServer("Pole")
+end) 
+end
+    end
+end)
 local Tab = Window:NewTab("Esp")
 local Section = Tab:NewSection("FE")
 Section:NewButton("esp", "ButtonInfo", function()

@@ -271,131 +271,32 @@ for i,v in pairs(game:GetService("Workspace").Enemy.FirstIsland:GetDescendants()
 end)
 local Tab = Window:NewTab("Weapon")
 local Section = Tab:NewSection("Weapon Select")
-Section:NewToggle("Katana", "ToggleInfo", function(state)
-    if state then
-        _G.wep = true
-while _G.wep do wait(0)
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Katana)
-    end)
-    end
-    
-    else
-        _G.wep = false
-while _G.wep do wait(0)
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Katana)
-    end)
-    end
-    end
-end)
-Section:NewToggle("Bisento", "ToggleInfo", function(state)
-    if state then
-       _G.wep = true
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
-    end)
-end
-    else
-        _G.wep = false
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Bisento)
-    end)
-end
-    end
-end)
+local Weaponlist = {}
+local Weapon = nil
 
-Section:NewToggle("Scythe", "ToggleInfo", function(state)
-    if state then
-        _G.wep = true
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Scythe)
-    end)
-end
-    else
-        _G.wep = false
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Scythe)
-    end)
-end
-    end
-end)
-Section:NewToggle("DarkScythe", "Maybe not work", function(state)
-    if state then
-        _G.wep = true
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.DarkScythe)
-    end)
-end
-    else
-        _G.wep = false
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.DarkScythe)
-    end)
-end
-    end
-end)
-Section:NewToggle("Pole", "ToggleInfo", function(state)
-    if state then
-        _G.wep = true
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Pole)
-    end)
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    table.insert(Weaponlist,v.Name)
 end
 
-    else
-        _G.wep = false
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Pole)
-    end)
-end
-
-    end
+local dropdown = Section:NewDropdown("Select Weapon"," ", Weaponlist , function(adw)
+ Weapon = adw
 end)
-Section:NewToggle("Excalibur", "ToggleInfo", function(state)
-    if state then
-           _G.wep = true
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Excalibur)
-    end)
-end
 
-    else
-           _G.wep = false
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Excalibur)
-    end)
-end
+Section:NewToggle("Auto Equip", " ", function(a)
+AutoEquiped = a
+end)
 
-    end
+
+spawn(function()
+while wait() do
+if AutoEquiped then
+pcall(function()
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
 end)
-Section:NewToggle("Muramasa", "ToggleInfo", function(state)
-    if state then
-        _G.wep = true
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Muramasa)
-    end)
 end
-    else
-        _G.wep = false
-while _G.wep do wait()
-    pcall(function()
-    game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack.Muramasa)
-    end)
 end
-    end
 end)
+
 local Tab = Window:NewTab("Admin")
 local Section = Tab:NewSection("FE Admin")
 Section:NewButton("Admin1", "ButtonInfo", function()

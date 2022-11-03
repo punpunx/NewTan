@@ -1,30 +1,214 @@
-_G.pun = true
-while _G.pun do wait()
-     pcall(function()
-       for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-            if not v:FindFirstChild('ESP') and v:FindFirstChild'Hitbox' then 
-                local BillboardGui = Instance.new("BillboardGui")
-                local TextLabel = Instance.new("TextLabel")
-                BillboardGui.Parent = v
-                BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-                BillboardGui.Active = true
-                BillboardGui.Name = "ESP"
-                BillboardGui.AlwaysOnTop = true
-                BillboardGui.LightInfluence = 1.000
-                BillboardGui.Size = UDim2.new(0, 200, 0, 50)
-                BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-                TextLabel.Parent = BillboardGui
-                TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                TextLabel.BackgroundTransparency = 1.000
-                TextLabel.Size = UDim2.new(0, 50, 0, 50)
-                TextLabel.Font = Enum.Font.GothamBold
-                TextLabel.Text = v.Name
-                TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TextLabel.TextScaled = true
-                TextLabel.TextSize = 15
-                TextLabel.TextStrokeTransparency = 0.000
-                TextLabel.TextWrapped = true
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/naypramx/Ui__Project/Script/XeNonUi", true))()
+library:CreateWatermark("Arjung | Premium Script")
+local CenterHubNo1 = library:CreateWindow("Shark Bite | Premium Script 💳",Enum.KeyCode.RightControl)
+local Tab = CenterHubNo1:CreateTab("")
+local Sector1 = Tab:CreateSector("Farm ⏩","left")
+function tp(locat)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = locat
+end
+
+local function getEnemy()
+    local dist, thing = math.huge
+    for i,v in pairs(workspace:GetChildren()) do
+        if v:IsA"Model" and v:FindFirstChild("Bite") then
+            local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Hitbox.Position).Magnitude
+            if mag < dist then 
+                dist = mag 
+                thing = v 
+            end
+        end
+    end
+    return thing
+end
+
+local function getTool()
+    for i,v in next, game.Players.LocalPlayer.Character:GetChildren() do
+        if v:IsA"Tool" then
+            return v
+        end
+    end
+end
+
+Sector1:AddToggle("Lock Rare Item 🔒",false,function(t)
+    _G.lock = t
+    while _G.lock do wait()
+    for i, v in pairs(game.Players.LocalPlayer.PlayerGui.Interface.Inventory.Inventory.Frame.Backpack.List.Container:GetChildren()) do
+        if string.match(v.Name, "key") then
+            for i, model in pairs(v:GetDescendants()) do
+                if model:IsA("Tool") then
+                    if model.RarityLevel.Value >= 4 then
+    if v.DraggableComponent.Contents.LockIcon.Visible == false then
+                            print(v.Name, model.Name, model.RarityLevel.Value)
+                        local args = {
+                            [1] = "Tools",
+                            [2] = v.Name,
+                            [3] = true
+                        }
+                        game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.SetInventoryItemLock:InvokeServer(unpack(args))
+    end
+                        end
+                      end
+                    end
+                end
+        end
+            end
+    end)
+Sector1:AddToggle("Auto Shark 🦈",false,function(t)
+    _G.shark = t
+    while _G.shark do wait()
+        pcall(function()
+            game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.SetEquippedItem:InvokeServer(1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getEnemy().Hitbox.CFrame * CFrame.new(0,20,0)
+            game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.MonsterHit:FireServer(getEnemy(),tostring(getTool()),true)
+            
+        end)
+    end
+end)
+Sector1:AddToggle("Auto sell 💸",false,function(t)
+_G.sell = t
+while _G.sell do wait()
+                game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.processGameItemSold:InvokeServer("SellEverything")
+        wait(10)
+        end
+        end)
+
+Sector1:AddToggle("Shark Esp 👀",false,function(t)
+_G.fish = t
+if _G.fish == true then
+while _G.fish do wait()
+ pcall(function()
+   for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+        if not v:FindFirstChild('ESP') and v:FindFirstChild'Bite' then 
+            local BillboardGui = Instance.new("BillboardGui")
+            local TextLabel = Instance.new("TextLabel")
+            BillboardGui.Parent = v
+            BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+            BillboardGui.Active = true
+            BillboardGui.Name = "ESP"
+            BillboardGui.AlwaysOnTop = true
+            BillboardGui.LightInfluence = 1.000
+            BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+            BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
+            TextLabel.Parent = BillboardGui
+            TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            TextLabel.BackgroundTransparency = 1.000
+            TextLabel.Size = UDim2.new(0, 50, 0, 50)
+            TextLabel.Font = Enum.Font.GothamBold
+            TextLabel.Text = v.Name
+            TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextLabel.TextScaled = true
+            TextLabel.TextSize = 15
+            TextLabel.TextStrokeTransparency = 0.000
+            TextLabel.TextWrapped = true
+            
 end
 end
 end)
 end
+else wait(.1)
+    for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+        if v:FindFirstChild'Hitbox' then 
+            
+    v.ESP:Destroy()
+        end
+end
+end
+end)
+
+
+local Sector1 = Tab:CreateSector("Setting😎","Right")
+Sector1:AddLabel("Local 👤")
+Sector1:AddSlider("Speed",16,16,300,1,function(x)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = x
+    end)
+    Sector1:AddSlider("Jump",50,50,300,1,function(x)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = x
+    end)
+    
+    Sector1:AddButton("Admin",function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+
+Sector1:AddLabel("Boat")
+
+
+Sector1:AddSlider("Boat Speed",50,150,1000,1,function(x)
+    for i, v in pairs(game.Workspace:GetChildren()) do
+    if v.Name == (game.Players.LocalPlayer.Name .. "'s Boat") then
+         v.Controller.VehicleSeat.MaxSpeed = x
+     end
+    end   
+end)
+
+
+
+
+Sector1:AddButton("Drive Boat 🚣",function()
+for i, v in pairs(game.Workspace:GetChildren()) do
+    if v.Name == (game.Players.LocalPlayer.Name .. "'s Boat") then
+        v.Controller.VehicleSeat.ProximityPrompt.MaxActivationDistance = 99999999999
+                fireproximityprompt(v.Controller.VehicleSeat.ProximityPrompt)
+        end
+end
+end)
+
+Sector1:AddButton("Tp Boat",function()
+for i, v in pairs(game.Workspace:GetChildren()) do
+    if v.Name == (game.Players.LocalPlayer.Name .. "'s Boat") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Body.Secondary.CFrame *CFrame.new(0,20,10)
+        end
+end
+end)
+
+
+
+
+
+
+
+local Sector1 = Tab:CreateSector("Teleport 🥩","Left")
+
+Sector1:AddButton("Starter Island 🌟",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(11.638134002685547, 52.9940299987793, -41.896873474121094)
+end)
+Sector1:AddButton("Lava Island 🔥" , function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2789.46337890625, 48.65807342529297, 1482.3646240234375) 
+
+end)
+Sector1:AddButton("Lava Insite 🌶",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5316.87255859375, 1107.64794921875, 32262.70703125) 
+
+end)
+Sector1:AddButton("Contianer Boat 🚢",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2702.52001953125, 150.47512817382812, 2197.876953125) 
+
+end)
+Sector1:AddButton("Monster's Borough 👻 (เกาะจู๋)",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-910.2891845703125, 44.95310974121094, 3060.405517578125) 
+
+end)
+Sector1:AddButton("Shark Island 🦈(Boss Summon)",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new() 
+
+end)
+Sector1:AddButton("Rock 🗿",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1687.443115234375, 76.51362609863281, 1156.294677734375) 
+
+end)
+Sector1:AddButton("Sand Island ⛱️" ,function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-4260.78662109375, 50.253501892089844, 360.984375) 
+
+end)
+Sector1:AddButton("Pyramid 🛕",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-4547.3916015625, 74.32182312011719, 341.0962829589844) 
+
+end)
+Sector1:AddButton("Ancient Island 🌳",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2648.208740234375, 48.14936447143555, -1792.1044921875) 
+
+end)
+Sector1:AddButton("Shadow Island 🌒",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2235.805908203125, 160.97235107421875, -2381.031494140625) 
+
+    end)

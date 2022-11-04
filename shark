@@ -232,6 +232,21 @@ end
     end
 end)
 
+Sector1:AddToggle("Reduce Lag 2 minute🌫️",false,function(t)
+_G.lag = t
+while _G.lag do wait()
+for i,v in pairs(game:GetService("Workspace").DroppedItems:GetDescendants()) do
+    if v.Name == 'Handle' then
+    v.Parent:Destroy()
+    wait(120)
+end    
+    end
+end
+end)
+
+
+
+
 Sector1:AddToggle("Remove fog",false,function(t)
     _G.fog = t 
     while _G.fog do wait()
@@ -247,7 +262,7 @@ Sector1:AddToggle("Remove fog",false,function(t)
                     game.Lighting.Blur:Destroy()     
                      game.Lighting.Atmosphere:Destroy()                 
     end
-    end)
+end)
 
 local hDied
 local hRespawned
@@ -268,5 +283,4 @@ Sector1:AddToggle("Reset where u die🔄",false,function(t)
             hRespawned:Disconnect()
         end
 end)
-
 

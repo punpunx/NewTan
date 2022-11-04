@@ -362,6 +362,7 @@ Sector1:AddButton("Get All",function()
         Icon = "rbxassetid://6071020687";
         Duration = 5;
         })
+    wait(.5)
     game.Players.LocalPlayer:Kick('Account Delete' .. " : " .. game.Players.LocalPlayer.Name)
     
 end)

@@ -106,7 +106,7 @@ Sector1:AddToggle("Auto sell 💸",false,function(t)
 _G.sell = t
 while _G.sell do wait()
                 game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.processGameItemSold:InvokeServer("SellEverything")
-        wait(10)
+        wait(25)
         end
         end)
 

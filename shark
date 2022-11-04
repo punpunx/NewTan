@@ -3,6 +3,10 @@ library:CreateWatermark("Arjung | Premium Script")
 local CenterHubNo1 = library:CreateWindow("Shark Bite | Premium Script 💳",Enum.KeyCode.RightControl)
 local Tab = CenterHubNo1:CreateTab("General️")
 local Sector1 = Tab:CreateSector("Farm ⏩","left")
+
+
+
+------------------- funtion
 function tp(locat)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = locat
 end
@@ -28,6 +32,11 @@ local function getTool()
         end
     end
 end
+
+
+--------------------
+
+
 Sector1:AddToggle("Auto fish 🐟",false,function(t)
     _G.fish = t 
     while _G.fish do wait()
@@ -35,6 +44,8 @@ wait(2.3)
 game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishCaught:FireServer()
 end
 end)
+
+---------------------
 Sector1:AddToggle("Lock Rare Item 🔒",false,function(t)
     _G.lock = t
     while _G.lock do task.wait()
@@ -59,16 +70,32 @@ Sector1:AddToggle("Lock Rare Item 🔒",false,function(t)
         end
             end
     end)
+
+
+
+-------------------------------- 
+
+
+local lshark
 Sector1:AddToggle("Auto Shark 🦈",false,function(t)
     _G.shark = t
-    while _G.shark do wait()
+   if _G.shark then
+        lshark = game:GetService('RunService').Stepped:Connect(function()
         pcall(function()
             game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.SetEquippedItem:InvokeServer(1)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getEnemy().Hitbox.CFrame * CFrame.new(0,30,0)
             game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.MonsterHit:FireServer(getEnemy(),tostring(getTool()),true)
-        end)
-    end
 end)
+end)
+else
+            lshark:Disconnect()
+end
+end)
+
+
+------------
+
+
 Sector1:AddToggle("Auto sell 💸",false,function(t)
 _G.sell = t
 while _G.sell do wait()
@@ -231,7 +258,22 @@ end
     end
 end)
 
-
+Sector1:AddToggle("Remove fog",false,function(t)
+    _G.fog = t 
+    while _G.fog do wait()
+    if  game.Lighting.FogEnd == 100 then
+             game.Lighting.FogEnd = 1000000
+            end
+                game.Lighting.FogEnd = 1000000
+                game.Lighting.GlobalLighting:Destroy()
+                game.Lighting.Atmosphere:Destroy()     
+                 game.Lighting.Lighting:Destroy()  
+                  game.Lighting.ColorCorrection:Destroy()     
+                   game.Lighting.Bloom:Destroy()     
+                    game.Lighting.Blur:Destroy()     
+                     game.Lighting.Atmosphere:Destroy()                 
+    end
+    end)
 
 local hDied
 local hRespawned
@@ -252,3 +294,5 @@ Sector1:AddToggle("Reset where u die🔄",false,function(t)
             hRespawned:Disconnect()
         end
 end)
+
+

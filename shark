@@ -180,7 +180,7 @@ end)
 
 local Sector1 = Tab:CreateSector("Setting😎","Right")
 Sector1:AddLabel("Local 👤")
-Sector1:AddSlider("Speed",16,16,300,1,function(x)
+Sector1:AddSlider("Speed",16,50,300,1,function(x)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = x
     end)
     Sector1:AddSlider("Jump",50,50,300,1,function(x)

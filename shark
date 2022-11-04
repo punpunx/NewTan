@@ -384,4 +384,51 @@ end)
 
 
 
+local Sector1 = Tab:CreateSector("WTF NEW!!","Right")
+
+
+Sector1:AddButton("ESP",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/NewTan/main/Kuyuzama",true))()
+end)
+
+
+
+
+
+
+Sector1:AddLabel("Hold Fish Rod ถือเบ็ด")
+local fakefish 
+
+Sector1:AddToggle("Fake Fish",false,function(t)
+    _G.fakefish = t
+    if _G.fakefish then
+    fakefish = game:GetService('RunService').Stepped:Connect(function()
+        game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.ToggleCastSound:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.CastFishingLine:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.ToggleCastSound:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.PlayWaterIntoSound:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishBiting:InvokeServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.PlayWaterIntoSound:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishBiting:InvokeServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.ToggleReelingSound:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.PlayWaterOutSound:FireServer()
+wait()
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.ToggleCastSound:FireServer()
+
+
+    end)
+    else
+        fakefish:Disconnect()
+    end
+    end)
+
+
 

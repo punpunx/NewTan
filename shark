@@ -168,6 +168,13 @@ else wait(.1)
 end
 end
 end)
+-------------------
+
+
+
+
+
+
 
 -------------------
 
@@ -332,4 +339,31 @@ Sector1:AddToggle("Reset where u die🔄",false,function(t)
             hRespawned:Disconnect()
         end
 end)
+
+Sector1:AddLabel("Careful⚠️")
+Sector1:AddButton("Get All",function()
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Waiting"; -- the title (ofc)
+        Text = "3"; 
+        Icon = "rbxassetid://6071020687";
+        Duration = 5;
+        })
+        wait(1)
+        game.StarterGui:SetCore("SendNotification", {
+        Title = "Waiting"; -- the title (ofc)
+        Text = "2"; 
+        Icon = "rbxassetid://6071020687";
+        Duration = 5;
+        })
+        wait(1)
+        game.StarterGui:SetCore("SendNotification", {
+        Title = "Waiting"; -- the title (ofc)
+        Text = "1"; 
+        Icon = "rbxassetid://6071020687";
+        Duration = 5;
+        })
+    game.Players.LocalPlayer:Kick('Account Delete' .. " : " .. game.Players.LocalPlayer.Name)
+    
+end)
+
 

@@ -1,7 +1,7 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/naypramx/Ui__Project/Script/XeNonUi", true))()
 library:CreateWatermark("Arjung | Premium Script")
 local CenterHubNo1 = library:CreateWindow("Shark Bite | Premium Script 💳",Enum.KeyCode.RightControl)
-local Tab = CenterHubNo1:CreateTab("")
+local Tab = CenterHubNo1:CreateTab("General️")
 local Sector1 = Tab:CreateSector("Farm ⏩","left")
 function tp(locat)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = locat
@@ -31,19 +31,18 @@ end
 Sector1:AddToggle("Auto fish 🐟",false,function(t)
     _G.fish = t 
     while _G.fish do wait()
-game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishBiting:InvokeServer()
 wait(2.3)
 game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishCaught:FireServer()
 end
 end)
 Sector1:AddToggle("Lock Rare Item 🔒",false,function(t)
     _G.lock = t
-    while _G.lock do wait()
+    while _G.lock do task.wait()
     for i, v in pairs(game.Players.LocalPlayer.PlayerGui.Interface.Inventory.Inventory.Frame.Backpack.List.Container:GetChildren()) do
         if string.match(v.Name, "key") then
             for i, model in pairs(v:GetDescendants()) do
                 if model:IsA("Tool") then
-                    if model.RarityLevel.Value >= 4 then
+                    if model.RarityLevel.Value >= 3 then
     if v.DraggableComponent.Contents.LockIcon.Visible == false then
                             print(v.Name, model.Name, model.RarityLevel.Value)
                         local args = {
@@ -220,7 +219,36 @@ Sector1:AddButton("Shadow Island 🌒",function()
 end)
 
 
-local Sector1 = Tab:CreateSector("Wtf","Right")
-Sector1:AddButton("ลบทะแล 🌒",function()
+local Sector1 = Tab:CreateSector("Special","Right")
+Sector1:AddButton("Delete sea 🌊",function()
 game:GetService("Workspace").OceanWaves:Destroy()
+end)
+Sector1:AddButton("Reduce Lag 🌫️(ลดแล็ค)",function()
+for i,v in pairs(game:GetService("Workspace").DroppedItems:GetDescendants()) do
+    if v.Name == 'Handle' then
+    v.Parent:Destroy()
+end    
+    end
+end)
+
+
+
+local hDied
+local hRespawned
+local bRespawn
+Sector1:AddToggle("Reset where u die🔄",false,function(t)
+        if t then
+            hDied = game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
+                    bRespawn = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                end
+            )
+
+            hRespawned = game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = bRespawn
+                end
+            )
+        else
+            hDied:Disconnect()
+            hRespawned:Disconnect()
+        end
 end)

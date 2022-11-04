@@ -110,8 +110,20 @@ while _G.sell do wait()
         end
         end)
 
-
-
+--------------------
+Sector1:AddToggle("Auto Drop",false,function(t)
+    _G.drop = t
+    while _G.drop do wait()
+pcall(function()
+for i,v in pairs(game:GetService("Workspace").DroppedItems:GetChildren()) do
+   if v:FindFirstChild('Ring') and v:FindFirstChild('Handle') then
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+    
+end
+end
+end)
+end
+end)
 
         --------------------
 Sector1:AddToggle("Shark Esp 👀",false,function(t)

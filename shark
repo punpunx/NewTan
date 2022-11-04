@@ -430,5 +430,22 @@ game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.ToggleCastSoun
     end
     end)
 
+Sector1:AddToggle("Tp to Player",false,function(t)
+_G.tp = t
+while _G.tp do wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[tplr].Character.HumanoidRootPart.CFrame
+    end
+end)
 
 
+
+Sector1:AddSlider("Camara Distance",100,100,10000,1,function(x)
+    _G.camdis = x
+game.Players.LocalPlayer.CameraMaxZoomDistance = x
+
+end)
+
+
+Sector1:AddButton("Default",function()
+   game.Players.LocalPlayer.CameraMaxZoomDistance = 150
+    end)

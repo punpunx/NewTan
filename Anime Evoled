@@ -1,0 +1,565 @@
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+
+Library:SetWatermark('Arjung Hub | Premium Script For '..game.Players.LocalPlayer.Name)
+
+--LeftGroupBox:AddLabel('This is a label')
+
+local Window = Library:CreateWindow({
+    Title = (game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name),
+    Center = true, 
+    AutoShow = true,
+})
+
+
+local Tabs = {
+    Main = Window:AddTab('Main'), 
+    Tptab = Window:AddTab('Teleport'),
+    ['UI Settings'] = Window:AddTab('UI Settings'),
+}
+
+------------------------------------------------------------ Gropbox
+
+
+local farmgroupbox = Tabs.Main:AddRightGroupbox('          \\ Setting //')
+
+local mobb = {}
+    for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Mobs:GetDescendants()) do
+if v:isA('Model') and not table.find(mobb, v.Name) then
+    table.insert(mobb, v.Name)
+end
+end
+farmgroupbox:AddDropdown('Moblist', {
+    Values = mobb,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Mob Select',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+Options.Moblist:OnChanged(function()
+    mob = Options.Moblist.Value
+end)
+
+local areana = {}
+    for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Areas:GetChildren()) do
+if v:isA('Model') and not table.find(areana, v.Name) then
+    table.insert(areana, v.Name)
+    end
+end
+
+farmgroupbox:AddDropdown('Arealist', {
+    Values = areana,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Area Select',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.Arealist:OnChanged(function()
+    area = Options.Arealist.Value
+end)
+
+
+local eggg = {}
+    for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].FightersPoint:GetChildren()) do
+if v:isA('Model') and not table.find(eggg, v.Name) then
+    table.insert(eggg, v.Name)
+    end
+end
+
+farmgroupbox:AddSlider('killdistance', {
+    Text = 'Mob Hit Distance',
+    Default = 1000,
+    Min = 10,
+    Max = 2000,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+Options.killdistance:OnChanged(function()
+    maxdis = Options.killdistance.Value
+end)
+-----------------
+farmgroupbox:AddLabel('           \\ Summon //')
+farmgroupbox:AddDropdown('Egglist', {
+    Values = eggg,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Egg Select',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.Egglist:OnChanged(function()
+    egg = Options.Egglist.Value
+end)
+
+farmgroupbox:AddSlider('eggslider', {
+    Text = 'Egg Wait (+0.2)',
+    Default = 3,
+    Min = 1.9,
+    Max = 5,
+    Rounding = 1,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+Options.eggslider:OnChanged(function()
+    eggwait = Options.eggslider.Value
+end)
+
+
+
+----------------
+
+farmgroupbox:AddLabel('        \\ Special Thing //')
+local MyButton = farmgroupbox:AddButton('Delete Lag', function()
+    for i,v in pairs(game:GetService("Workspace")["__DROPS"]:GetChildren()) do
+        v:Destroy()
+        end
+end)
+farmgroupbox:AddButton('Admin', function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+------------------
+
+local plrposition
+farmgroupbox:AddButton("Set Position",function()
+plrposition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+end)
+
+farmgroupbox:AddButton("Tp",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = plrposition
+end)
+
+
+
+
+
+
+
+
+
+
+------------------------
+local farmbox = Tabs.Main:AddLeftGroupbox('          \\ General //')
+farmbox:AddToggle('Coint', {
+    Text = 'Get Coint',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+
+Toggles.Coint:OnChanged(function()
+    _G.coint = Toggles.Coint.Value
+    while _G.coint do wait()
+        for i,v in pairs(game:GetService("Workspace")["__DROPS"]:GetChildren()) do
+            v.CanCollide = true
+    v.CFrame =game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    end
+    end
+end)
+
+
+farmbox:AddToggle('kill', {
+    Text = 'Auto kill mob',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+
+Toggles.kill:OnChanged(function()
+    _G.kill = Toggles.kill.Value
+    while _G.kill do task.wait()
+        for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Mobs:GetDescendants()) do
+        if v.Name == mob and v:FindFirstChild("Left Arm") then
+            local dis = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v["Left Arm"].Position).Magnitude
+            if dis < maxdis then
+        local args = {
+            [1] = {
+                [1] = "AttackMob",
+                [2] = v,
+                [3] = "Left Arm"
+            }
+        }
+        
+        game:GetService("ReplicatedStorage").Remotes.Client:FireServer(unpack(args))
+        
+        end
+        end
+        end
+        end
+end)
+farmbox:AddToggle('killnear', {
+    Text = 'Kill all near',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+Toggles.killnear:OnChanged(function()
+    _G.all = Toggles.killnear.Value
+    while _G.all do task.wait()
+        for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Mobs:GetDescendants()) do
+            if v:isA('Model') and v:FindFirstChild("Left Arm") then
+                local dis = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v["Left Arm"].Position).Magnitude
+                if dis < maxdis then
+            local args = {
+                [1] = {
+                    [1] = "AttackMob",
+                    [2] = v,
+                    [3] = "Left Arm"
+                }
+            }
+            
+            game:GetService("ReplicatedStorage").Remotes.Client:FireServer(unpack(args))
+            
+            end
+            end
+            end
+            end
+    end)
+    farmbox:AddLabel("          \\ Local Farm //")
+    farmbox:AddToggle('autoclick', {
+        Text = 'Auto Click',
+        Default = false, -- Default value (true / false)
+        Tooltip = nil, -- Information shown when you hover over the toggle
+    })
+    Toggles.autoclick:OnChanged(function()
+        _G.click = Toggles.autoclick.Value
+        while _G.click do task.wait()
+            local args = {
+                [1] = {
+                    [1] = "PowerTrain"
+                }
+            }
+            
+            game:GetService("ReplicatedStorage").Remotes.Client:FireServer(unpack(args))
+            end
+    end)
+    
+    farmbox:AddButton("Tp area point",function()
+        for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Areas:GetChildren()) do
+            if v.Name == area then
+                if v:FindFirstChild('Point') then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Point.CFrame
+                else return 
+                    end
+                end
+                end
+    end)
+
+    farmbox:AddToggle('togglearea', {
+        Text = 'Auto Area',
+        Default = false, -- Default value (true / false)
+        Tooltip = nil, -- Information shown when you hover over the toggle
+    })
+    Toggles.togglearea:OnChanged(function()
+    _G.area = Toggles.togglearea.Value
+    while _G.area do task.wait()
+    for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Areas:GetChildren()) do
+        if v.Name == area then
+    local args = {
+        [1] = {
+            [1] = "PowerTrain",
+            [2] = v
+        }
+    }
+    
+    game:GetService("ReplicatedStorage").Remotes.Client:FireServer(unpack(args))
+    end
+    end
+    end
+end)
+    farmbox:AddLabel("          \\ Open Egg //")
+    
+    farmbox:AddToggle('Openegg', {
+        Text = 'Auto Egg',
+        Default = false, -- Default value (true / false)
+        Tooltip = nil, -- Information shown when you hover over the toggle
+    })
+    Toggles.Openegg:OnChanged(function()
+    _G.egg = Toggles.Openegg.Value
+while _G.egg do task.wait()
+for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].FightersPoint:GetChildren()) do
+if v.Name == egg then
+local args = {
+    [1] = {
+        [1] = "BuyTier",
+        [2] = v,
+        [3] = "E",
+        [4] = {}
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.Client:FireServer(unpack(args))
+wait(eggwait)
+end
+end
+end
+end)
+
+
+    --------------------
+    farmbox:AddLabel("          \\ Lag //")
+farmbox:AddToggle('hyperkill', {
+    Text = 'Hyper kill',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+    local hyperdamage
+    
+    Toggles.hyperkill:OnChanged(function()
+        _G.hyper = Toggles.hyperkill.Value
+        pcall(function()
+        if _G.hyper then
+            hyperdamage = game:GetService('RunService').Stepped:Connect(function()
+            
+                for i,v in pairs(game:GetService("Workspace")["__WORKSPACE"].Mobs:GetDescendants()) do
+                    if v:isA('Model') and v:FindFirstChild("Left Arm") then
+                        local dis = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v["Left Arm"].Position).Magnitude
+                        if dis < maxdis then
+                    local args = {
+                        [1] = {
+                            [1] = "AttackMob",
+                            [2] = v,
+                            [3] = "Left Arm"
+                        }
+                    }
+                    
+                    game:GetService("ReplicatedStorage").Remotes.Client:FireServer(unpack(args))
+                    
+                    end
+                    end
+                    end
+                end)
+                    
+    else 
+        hyperdamage:Disconnect()
+    end
+end)
+end)
+
+
+
+
+------------------
+
+
+
+local tpmain = Tabs.Main:AddLeftGroupbox('          \\ Tp Main //')
+tpmain:AddButton("Rank up",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-39.996192932128906, 3.0497193336486816, -87.41302490234375)
+    end)
+    tpmain:AddButton("Fuse",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(53.05849838256836, 3.017636299133301, 641.240966796875)
+end)
+tpmain:AddButton("Avatar",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(38.09818649291992, 3.049717903137207, -70.60649108886719)
+end)
+tpmain:AddButton("Aura",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2.223968982696533, 7.972986221313477, 1788.5377197265625)
+end)
+tpmain:AddButton("Sword Upgrate",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(61.7249755859375, 2.599832057952881, 2666.0498046875)
+end)
+
+
+local tpbox = Tabs.Tptab:AddLeftTabbox() -- Add Tabbox on left side
+
+local Tab1 = tpbox:AddTab('Tab 1')
+local Tab2 = tpbox:AddTab('Tab 2')
+Tab1:AddButton("Fuse",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(53.05849838256836, 3.017636299133301, 641.240966796875)
+    end)
+    Tab1:AddButton("One piece",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+end)
+Tab1:AddButton("Naruto",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8.267921447753906, 2.9999992847442627, 232.03831481933594)
+end)
+Tab1:AddButton("Dragon Ball",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5.212587356567383, 2.9999992847442627, 598.551025390625)
+end)
+Tab1:AddButton("Attack on titan",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1.094778060913086, 3.0176351070404053, 947.0552368164062)
+end)
+Tab1:AddButton("Demon Slayer",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3.62754225730896, 3.0176351070404053, 1185.3546142578125)
+end)
+Tab1:AddButton("One Punch",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1.3028424978256226, 3.0002803802490234, 1474.100341796875)
+end)
+Tab1:AddButton("Aura",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2.223968982696533, 7.972986221313477, 1788.5377197265625)
+end)
+Tab1:AddButton("Hunter x Hunter",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0.46824151277542114, 2.469236373901367, 2096.68505859375)
+end)
+Tab1:AddButton("My hero academia",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(42.13521957397461, 2.545194625854492, 2297.85888671875)
+end)
+Tab1:AddButton("Sword Upgrate",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(61.7249755859375, 2.599832057952881, 2666.0498046875)
+end)
+Tab1:AddButton("Jujutsu Kaisen",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(413.966796875, 2.775056838989258, 2653.7607421875)
+end)
+Tab1:AddButton("Slime",function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(429.6435546875, 2.803229570388794, 2295.8330078125)
+    end)
+
+    Tab2:AddButton("One piece",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+    end)
+    Tab2:AddButton("One piece",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+    end)
+    Tab2:AddButton("One piece",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+    end)
+    Tab2:AddButton("One piece",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+    end)
+    Tab2:AddButton("One piece",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+    end)
+    Tab2:AddButton("One piece",function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9.08923053741455, 3.032083034515381, -4.294549942016602)
+    end)
+local setting2 = Tabs.Tptab:AddRightGroupbox('          \\ Setting //')
+setting2:AddSlider('Speedslider', {
+        Text = 'Speed',
+        Default = 50,
+        Min = 16,
+        Max = 300,
+        Rounding = 0,
+    
+        Compact = false, -- If set to true, then it will hide the label
+    })
+    Options.Speedslider:OnChanged(function()
+        speed = Options.Speedslider.Value    
+    end)
+    setting2:AddToggle('speedtoggle', {
+        Text = 'Speed Enable',
+        Default = false, -- Default value (true / false)
+        Tooltip = nil, -- Information shown when you hover over the toggle
+    })
+    Toggles.speedtoggle:OnChanged(function()
+    _G.speed = Toggles.speedtoggle.Value
+    while _G.speed do task.wait()
+        pcall(function()
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+        end)
+end
+end)
+
+setting2:AddSlider('Jumptoggle', {
+        Text = 'Jump Enable',
+        Default = 50,
+        Min = 50,
+        Max = 300,
+        Rounding = 0,
+    
+        Compact = false, -- If set to true, then it will hide the label
+    })
+    Options.Jumptoggle:OnChanged(function()
+        jump = Options.Jumptoggle.Value  
+    end)
+    setting2:AddToggle('jumptog', {
+        Text = 'Jump Enable',
+        Default = false, -- Default value (true / false)
+        Tooltip = nil, -- Information shown when you hover over the toggle
+    })
+    Toggles.jumptog:OnChanged(function()
+    _G.speed = Toggles.jumptog.Value
+    while _G.speed do task.wait()
+        pcall(function()
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
+        end)
+    end
+end)
+
+setting2:AddSlider('camerazoom', {
+    Text = 'Camera Zoom',
+    Default = 80,
+    Min = 80,
+    Max = 1000,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+Options.camerazoom:OnChanged(function()
+    _G.zoomax =  Options.camerazoom.Value
+    game.Players.LocalPlayer.CameraMaxZoomDistance = _G.zoomax  
+end)
+
+--[[
+local TabBox = Tabs.Main:AddLeftTabbox() -- Add Tabbox on left side
+
+local Tab1 = TabBox:AddTab('Tab 1')
+local Tab2 = TabBox:AddTab('Tab 2')
+
+farmgroupbox:AddDropdown('Egglist', {
+    Values = eggg,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Egg Select',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.Egglist:OnChanged(function()
+    egg = Options.Egglist.Value
+end)
+
+LeftGroupBox:AddToggle('MyToggle', {
+    Text = 'This is a toggle',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggle:OnChanged(function(t)
+    t = Toggles.MyToggle.Value
+    -- funtion 
+end)
+
+local MyButton = LeftGroupBox:AddButton('Button', function()
+    print('You clicked a button!')
+end)
+
+LeftGroupBox:AddSlider('MySlider', {
+    Text = 'This is my slider!',
+    Default = 0,
+    Min = 1,
+    Max = 5,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+local Number = Options.MySlider.Value
+Options.MySlider:OnChanged(function(t)
+    t = Options.MySlider.Value
+    
+end)
+--]]
+
+
+
+
+-- UI Settings
+local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
+MenuGroup:AddButton('Unload', function() Library:Unload() end)
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu keybind' }) 
+Library.ToggleKeybind = Options.MenuKeybind
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+SaveManager:IgnoreThemeSettings() 
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' }) 
+ThemeManager:SetFolder('MyScriptHub')
+SaveManager:SetFolder('MyScriptHub/specific-game')
+SaveManager:BuildConfigSection(Tabs['UI Settings']) 
+ThemeManager:ApplyToTab(Tabs['UI Settings'])

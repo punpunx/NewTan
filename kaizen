@@ -1,0 +1,427 @@
+repeat wait() until game:IsLoaded()
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+
+Library:SetWatermark('LaxyLost | Premium Script For '..game.Players.LocalPlayer.Name)
+
+--LeftGroupBox:AddLabel('This is a label')
+
+local Window = Library:CreateWindow({
+    Title = (game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name),
+    Center = true, 
+    AutoShow = true,
+})
+
+
+local Tabs = {
+    Main = Window:AddTab('Main'), 
+    tptab = Window:AddTab('Teleport'),
+    ['UI Settings'] = Window:AddTab('UI Settings'),
+}
+
+
+local mainfarmbox = Tabs.Main:AddLeftGroupbox('          \\ General //')
+local mainsettingbox = Tabs.Main:AddRightGroupbox('          \\ Setting //')
+local maintpbox = Tabs.Main:AddLeftGroupbox('            \\ tp //')
+local secondtpplacebox = Tabs.tptab:AddLeftGroupbox('          \\ Teleport //')
+local secondtpbox = Tabs.tptab:AddRightGroupbox('           \\ Mob //')
+
+----------------------------
+
+
+function CheckLevel()
+    local FLv = game:GetService("Players").LocalPlayer.PlayerGui.UI.Tabs.MenuButton.Level.Text
+    local Lvt = string.sub(FLv,5,6)
+    local Lv = tonumber(Lvt)
+    if Lv == 1 or Lv < 15 then
+        MobQuest = "BanditSideQuest"
+        MobQ = "Bandits"
+        MobName = "Rogue Bandit"
+    elseif Lv == 15 or Lv < 30 then
+        MobQuest = "BanditSideQuest"
+        MobQ = "Armed Bandits"
+        MobName = "Armed Bandit"
+    elseif Lv == 30 or Lv < 45 then
+        MobQuest = "ShroomSideQuest"
+        MobQ = "Shrooms"
+        MobName = "Shroom"
+    elseif Lv == 45 or Lv < 65 then
+        MobQuest = "StudentSideQuest"
+        MobQ = "Juniors"
+        MobName = "Junior"
+    elseif Lv == 65 or Lv < 70 then
+        MobQuest = "StudentSideQuest"
+        MobQ = "Seniors"
+        MobName = "Senior"
+    elseif Lv == 70 or Lv < 200 then
+        MobQuest = "Miwa"
+        MobQ = "Saku"
+        MobName = "Saku" 
+
+    end
+end
+
+--------------- tool
+
+
+
+local toollist = {}
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v:isA('Tool') and not table.find(toollist, v.Name) then
+    table.insert(toollist,v.Name)
+end
+end
+
+
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:isA('Tool') and not table.find(toollist, v.Name) then
+    table.insert(toollist,v.Name)
+end
+end
+local fistss
+for i,v in pairs(toollist) do
+    if string.match(v, "Fists") then
+    fistss = v
+    end
+    end
+
+mainsettingbox:AddDropdown('tooldrop', {
+    Values = toollist,
+    Default = fistss, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Tool',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.tooldrop:OnChanged(function()
+    tooleq = Options.tooldrop.Value
+end)
+
+
+mainsettingbox:AddSlider('farmdistance', {
+    Text = 'Distance',
+    Default = 8,
+    Min = 5,
+    Max = 50,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+Options.farmdistance:OnChanged(function()
+    farmdis = Options.farmdistance.Value
+end)
+
+mainsettingbox:AddLabel('-----------------------')
+
+mainsettingbox:AddSlider('speedplrbox', {
+    Text = 'Players Speed',
+    Default = 16,
+    Min = 16,
+    Max = 500,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+Options.speedplrbox:OnChanged(function()
+    plrspeed = Options.speedplrbox.Value
+end)
+mainsettingbox:AddToggle('speedplrtog', {
+    Text = 'Speed Enable',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+Toggles.speedplrtog:OnChanged(function()
+    _G.plrspeed = Toggles.speedplrtog.Value
+ while _G.plrspeed do wait()
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = plrspeed
+ end
+end)
+
+
+mainsettingbox:AddSlider('jumppowerbox', {
+    Text = 'Distance',
+    Default = 50,
+    Min = 50,
+    Max = 200,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+Options.jumppowerbox:OnChanged(function()
+    plrjumpow = Options.jumppowerbox.Value
+end)
+
+mainsettingbox:AddToggle('jumptogg', {
+    Text = 'Jump Enable',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+Toggles.jumptogg:OnChanged(function()
+    _G.plrjump = Toggles.jumptogg.Value
+ while _G.plrjump do wait()
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = plrjumpow
+ end
+end)
+---function
+function tp(human)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = human.CFrame *CFrame.new(0,farmdis,0)
+end
+----------
+
+
+
+function sentQ()
+    for i,v in pairs(game:GetService("Workspace").Debris.InteractionModels:GetChildren()) do
+        if v.Name == MobQuest then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame *CFrame.new(0,0,-5)
+    local args = {[1] = tostring(MobQuest), [2] = "talk"}
+    game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetDialogue:InvokeServer(unpack(args))                                
+    wait(0.1)
+    local args = {[1] = tostring(MobQuest), [2] = "Bye"}
+    game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer(unpack(args))                   
+        end             
+    end
+end
+
+
+local NowQuest 
+function CheckQuest()
+    if string.match(NowQuest, "Defeat".." "..MobName) then
+        return true
+        end
+        return false
+ end
+
+
+    mainfarmbox:AddToggle('Kainton', {
+        Text = 'Kaiton',
+        Default = false, -- Default value (true / false)
+        Tooltip = nil, -- Information shown when you hover over the toggle
+    })
+    local noclip
+    Toggles.Kainton:OnChanged(function()
+        _G.farm = Toggles.Kainton.Value
+        pcall(function()
+        if _G.farm then
+            noclip = game:GetService('RunService').Stepped:Connect(function()
+            CheckLevel() 
+                    NowQuest = game:GetService("Players").LocalPlayer.PlayerGui.UINoReset.Quests.QuestsFrame.QuestTemplate1.Label.Text
+                        if CheckQuest() == true then
+                            if not string.match(NowQuest,"5/5") then
+                                if not string.match(NowQuest,"1/1") then
+                            CheckLevel()
+                            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11) 
+                            setfflag("HumanoidParallelRemoveNoPhysics", "False")
+                        setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+                                for i,v in pairs(game:GetService("Workspace").Living.Mobs:GetChildren()) do
+                                    if v.Name == MobName and v:FindFirstChild('Humanoid') then
+                                        if v.Humanoid.Health > 0 then
+                                            if game.Players.LocalPlayer.Character:FindFirstChild(tooleq) then
+                                        tp(v.HumanoidRootPart)
+                                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position , v.HumanoidRootPart.Position)  
+                        task.spawn(function()
+                            game:GetService("Players").LocalPlayer.Character[tooleq].CombatHandler.Attack:FireServer(false)
+                        end)
+                        else
+                            game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack[tooleq])
+                        end
+                        end
+                                        end
+                                    end
+                                else
+                                    sentQ()
+                                end
+                        else
+                        sentQ()
+                        end
+                        else
+                            if CheckQuest() == false then
+                                CheckLevel()
+                                    for i,v in pairs(game:GetService("Workspace").Debris.InteractionModels:GetChildren()) do 
+                                        if v.Name == MobQuest then
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame *CFrame.new(0,0,5)
+                        local args = {[1] = tostring(MobQuest), [2] = "begin"}
+                        game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetDialogue:InvokeServer(unpack(args))
+                        wait(0.1)
+                        local args = {[1] = tostring(MobQuest), [2] = tostring(MobQ)}
+                        game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer(unpack(args))        
+                        wait(0.1)
+                        local args = {[1] = tostring(MobQuest), [2] = "Confirm"}
+                        game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer(unpack(args)) 
+                        wait(2)
+                                    end
+                                    end
+                                end 
+                            end        
+            
+        end)
+    else
+        noclip:Disconnect()
+        end
+     end)
+    end)
+
+
+    mainfarmbox:AddLabel("---------- Need Lv 5 Kaitan")
+mainfarmbox:AddToggle("LowLv",{
+    Text = 'Level Farm (Newbie)',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+local llowlv
+Toggles.LowLv:OnChanged(function()
+    _G.FarmLv = Toggles.LowLv.Value
+    pcall(function()
+    if _G.FarmLv then
+        llowlv = game:GetService('RunService').Stepped:Connect(function()
+        wait(2)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Debris.InteractionModels.Sojo1.HumanoidRootPart.CFrame *CFrame.new(0,0,-5)
+        game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer("Sojo1", "Fine")
+        wait(0.5)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =  game:GetService("Workspace").Debris.InteractionModels.Kita.HumanoidRootPart.CFrame *CFrame.new(0,0,-5)
+        wait()
+        game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetInitFunction:InvokeServer("Kita")
+        wait()
+        game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer("Kita", "Fine")
+        wait(0.5)
+        end)
+    else
+   llowlv:Disconnect()
+end
+end)
+end)
+
+
+secondtpplacebox:AddButton('Starter', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =CFrame.new(-198.0809783935547, 163.3705291748047, 559.0735473632812)
+end)
+secondtpplacebox:AddButton('Cave', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-743.9264526367188, 121.78290557861328, 18.65045738220215)
+end)
+secondtpplacebox:AddButton('Midori', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-576.0659790039062, 152.50836181640625, -735.6987915039062)
+end)
+secondtpplacebox:AddButton('Bleach', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(920.7588500976562, 130.1864776611328, -1340.1427001953125)
+end)
+secondtpplacebox:AddButton('Todou Fighting Style', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(785.9189453125, 151.30715942382812, -657.705810546875)
+end)
+secondtpplacebox:AddButton('Tokyo', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(997.9430541992188, 197.2832489013672, 69.40799713134766)
+end)
+secondtpplacebox:AddButton('Starter', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.0809783935547, 163.3705291748047, 559.0735473632812)
+end)
+secondtpplacebox:AddButton('Starter', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.0809783935547, 163.3705291748047, 559.0735473632812)
+end)
+secondtpplacebox:AddButton('Starter', function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-198.0809783935547, 163.3705291748047, 559.0735473632812)
+end)
+
+
+
+
+
+
+local tpmob = {}
+for i,v in pairs(game:GetService("Workspace").Debris.InteractionModels:GetChildren()) do
+if v:isA('Model') and not table.find(tpmob, v.Name) then
+table.insert(tpmob,v.Name)
+end
+end
+secondtpbox:AddDropdown('tpmobposi', {
+    Values = tpmob,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Tp Mob Select',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.tpmobposi:OnChanged(function()
+    ttpmob = Options.tpmobposi.Value
+end)
+
+secondtpbox:AddButton('Tp', function()
+    for i,v in pairs(game:GetService("Workspace").Debris.InteractionModels:GetChildren()) do
+        if v.Name == ttpmob then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+        end
+end
+end)
+
+
+
+--[[
+local TabBox = Tabs.Main:AddLeftTabbox() -- Add Tabbox on left side
+
+local Tab1 = TabBox:AddTab('Tab 1')
+local Tab2 = TabBox:AddTab('Tab 2')
+
+farmgroupbox:AddDropdown('Egglist', {
+    Values = eggg,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Egg Select',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.Egglist:OnChanged(function()
+    egg = Options.Egglist.Value
+end)
+
+LeftGroupBox:AddToggle('MyToggle', {
+    Text = 'This is a toggle',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggle:OnChanged(function(t)
+    t = Toggles.MyToggle.Value
+    -- funtion 
+end)
+
+local MyButton = LeftGroupBox:AddButton('Button', function()
+    print('You clicked a button!')
+end)
+
+LeftGroupBox:AddSlider('MySlider', {
+    Text = 'This is my slider!',
+    Default = 0,
+    Min = 1,
+    Max = 5,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+local Number = Options.MySlider.Value
+Options.MySlider:OnChanged(function(t)
+    t = Options.MySlider.Value
+    
+end)
+--]]
+
+
+-- UI Settings
+local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
+MenuGroup:AddButton('Unload', function() Library:Unload() end)
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu keybind' }) 
+Library.ToggleKeybind = Options.MenuKeybind
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+SaveManager:IgnoreThemeSettings() 
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' }) 
+ThemeManager:SetFolder('MyScriptHub')
+SaveManager:SetFolder('MyScriptHub/specific-game')
+SaveManager:BuildConfigSection(Tabs['UI Settings']) 
+ThemeManager:ApplyToTab(Tabs['UI Settings'])

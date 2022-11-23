@@ -19,16 +19,16 @@ local Window = Library:CreateWindow({
 local Tabs = {
     Main = Window:AddTab('Main'), 
     tptab = Window:AddTab('Teleport'),
+    virsualtab = Window:AddTab('Virsual'),
     ['UI Settings'] = Window:AddTab('UI Settings'),
 }
 
 
 local mainfarmbox = Tabs.Main:AddLeftGroupbox('          \\ General //')
 local mainsettingbox = Tabs.Main:AddRightGroupbox('          \\ Setting //')
-local maintpbox = Tabs.Main:AddLeftGroupbox('            \\ tp //')
+local mainvirbox = Tabs.virsualtab:AddLeftGroupbox('            \\ Virsual //')
 local secondtpplacebox = Tabs.tptab:AddLeftGroupbox('          \\ Teleport //')
 local secondtpbox = Tabs.tptab:AddRightGroupbox('           \\ Mob //')
-
 ----------------------------
 
 
@@ -168,6 +168,29 @@ Toggles.jumptogg:OnChanged(function()
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = plrjumpow
  end
 end)
+
+
+-------------
+mainvirbox:AddButton('Redeem All Code', function()
+    game:GetService("ReplicatedStorage").Knit.Services.serverInputService.RF.RedeemCode:InvokeServer("6KPLAYERS!")
+    wait()
+    game:GetService("ReplicatedStorage").Knit.Services.serverInputService.RF.RedeemCode:InvokeServer("4K_LIKES!")
+    wait()
+    game:GetService("ReplicatedStorage").Knit.Services.serverInputService.RF.RedeemCode:InvokeServer("MORE_FREE_SPINS")
+    wait()
+    game:GetService("ReplicatedStorage").Knit.Services.serverInputService.RF.RedeemCode:InvokeServer("ALPHA!")
+    wait()
+    game:GetService("ReplicatedStorage").Knit.Services.serverInputService.RF.RedeemCode:InvokeServer("5_FREE_SPINS")
+end)
+
+mainvirbox:AddButton('ESP', function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/punpunx/Tanne/main/esp"))()
+end)
+mainvirbox:AddButton('Admin', function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+
 ---function
 function tp(human)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = human.CFrame *CFrame.new(0,farmdis,0)
@@ -357,6 +380,70 @@ secondtpbox:AddButton('Tp', function()
         end
 end
 end)
+
+
+
+
+-----------old box 
+local moblist = {}
+for i,v in pairs(game:GetService("Workspace").Living.Mobs:GetChildren()) do
+if v:isA('Model') and not table.find(moblist, v.Name) then
+    table.insert(moblist,v.Name)
+end
+end
+
+
+mainfarmbox:AddLabel('--------- Select Farm Medthod')
+mainsettingbox:AddLabel('----------------- Old Medthod')
+mainsettingbox:AddDropdown('moblistbox', {
+    Values = moblist,
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Mob',
+    Tooltip = nil, -- Information shown when you hover over the textbox
+})
+
+Options.moblistbox:OnChanged(function()
+    mob = Options.moblistbox.Value
+end)
+
+
+mainfarmbox:AddToggle("Oldfarmmedthod",{
+    Text = 'Old Medthod',
+    Default = false, -- Default value (true / false)
+    Tooltip = nil, -- Information shown when you hover over the toggle
+})
+Toggles.Oldfarmmedthod:OnChanged(function()
+    _G.oldfarm = Toggles.Oldfarmmedthod.Value
+    while _G.oldfarm do wait()
+        for i,v in pairs(game:GetService("Workspace").Living.Mobs:GetChildren()) do
+            if v.Name == mob and v:FindFirstChild('Humanoid') then
+                if v.Humanoid.Health > 0 then
+                    if game.Players.LocalPlayer.Character:FindFirstChild(tooleq) then
+                tp(v.HumanoidRootPart)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position , v.HumanoidRootPart.Position)  
+        task.spawn(function()
+        game:GetService("Players").LocalPlayer.Character[tooleq].CombatHandler.Attack:FireServer(false)
+        end)
+        else
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack[tooleq])
+        end
+        end
+                end
+            end
+end
+end)
+
+
+
+
+
+
+
+
+
+
 
 
 

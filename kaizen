@@ -34,7 +34,7 @@ local secondtpbox = Tabs.tptab:AddRightGroupbox('           \\ Mob //')
 
 function CheckLevel()
     local FLv = game:GetService("Players").LocalPlayer.PlayerGui.UI.Tabs.MenuButton.Level.Text
-    local Lvt = string.sub(FLv,5,6)
+    local Lvt = string.sub(FLv,5,7)
     local Lv = tonumber(Lvt)
     if Lv == 1 or Lv < 15 then
         MobQuest = "BanditSideQuest"
@@ -56,10 +56,14 @@ function CheckLevel()
         MobQuest = "StudentSideQuest"
         MobQ = "Seniors"
         MobName = "Senior"
-    elseif Lv == 70 or Lv < 200 then
+    elseif Lv == 70 or Lv < 130 then
         MobQuest = "Miwa"
         MobQ = "Saku"
-        MobName = "Saku" 
+        MobName = "Saku"
+        elseif Lv == 130 or Lv < 400 then
+        MobQuest = "Yuzi2"
+        MobQ = "Hanamato"
+        MobName = "Hanamato" 
 
     end
 end
@@ -202,12 +206,16 @@ end
 function sentQ()
     for i,v in pairs(game:GetService("Workspace").Debris.InteractionModels:GetChildren()) do
         if v.Name == MobQuest then
+            if game.Players.LocalPlayer.Character.LowerTorso:FindFirstChild("Root") then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame *CFrame.new(0,0,-5)
     local args = {[1] = tostring(MobQuest), [2] = "talk"}
     game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetDialogue:InvokeServer(unpack(args))                                
     wait(0.1)
     local args = {[1] = tostring(MobQuest), [2] = "Bye"}
-    game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer(unpack(args))                   
+    game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer(unpack(args))        
+else
+    game.Players.LocalPlayer.Character.Humanoid.Health = die
+end           
         end             
     end
 end
@@ -238,7 +246,15 @@ function CheckQuest()
                         if CheckQuest() == true then
                             if not string.match(NowQuest,"5/5") then
                                 if not string.match(NowQuest,"1/1") then
-                            CheckLevel()
+                                    if game.Players.LocalPlayer.Character.LowerTorso:FindFirstChild("Root") then
+                                        local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(117.66917419433594, 237.5518798828125, 247.70867919921875)
+            wait(0.1)
+            game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy()
+            wait(1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+                                    else
+                                        CheckLevel()
                             game.Players.LocalPlayer.Character.Humanoid:ChangeState(11) 
                             setfflag("HumanoidParallelRemoveNoPhysics", "False")
                         setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
@@ -254,6 +270,7 @@ function CheckQuest()
                         else
                             game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack[tooleq])
                         end
+                    end
                         end
                                         end
                                     end
@@ -266,9 +283,10 @@ function CheckQuest()
                         else
                             if CheckQuest() == false then
                                 CheckLevel()
+                                if game.Players.LocalPlayer.Character.LowerTorso:FindFirstChild("Root") then
                                     for i,v in pairs(game:GetService("Workspace").Debris.InteractionModels:GetChildren()) do 
                                         if v.Name == MobQuest then
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame *CFrame.new(0,0,5)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame *CFrame.new(0,20,0)
                         local args = {[1] = tostring(MobQuest), [2] = "begin"}
                         game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetDialogue:InvokeServer(unpack(args))
                         wait(0.1)
@@ -278,7 +296,10 @@ function CheckQuest()
                         local args = {[1] = tostring(MobQuest), [2] = "Confirm"}
                         game:GetService("ReplicatedStorage").Knit.Services.interactService.RF.GetOptionData:InvokeServer(unpack(args)) 
                         wait(2)
+                                        end
                                     end
+                                else
+                                    game.Players.LocalPlayer.Character.Humanoid.Health = die
                                     end
                                 end 
                             end        
@@ -384,6 +405,7 @@ end)
 
 
 
+mainfarmbox:AddLabel('---------------')
 -----------old box 
 local moblist = {}
 for i,v in pairs(game:GetService("Workspace").Living.Mobs:GetChildren()) do
@@ -392,9 +414,6 @@ if v:isA('Model') and not table.find(moblist, v.Name) then
 end
 end
 
-
-mainfarmbox:AddLabel('--------- Select Farm Medthod')
-mainsettingbox:AddLabel('----------------- Old Medthod')
 mainsettingbox:AddDropdown('moblistbox', {
     Values = moblist,
     Default = 1, -- number index of the value / string
@@ -435,12 +454,23 @@ Toggles.Oldfarmmedthod:OnChanged(function()
 end
 end)
 
+mainfarmbox:AddButton("Invisible", function()
+    local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(117.66917419433594, 237.5518798828125, 247.70867919921875)
+wait(0.1)
+game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy()
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+    end)
 
 
-
-
-
-
+mainfarmbox:AddButton("Reset", function()
+    local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.Humanoid.Health = die
+game.Players.LocalPlayer.ChildAdded:Connect(function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+    end)
+ end)
 
 
 
@@ -512,5 +542,3 @@ ThemeManager:SetFolder('MyScriptHub')
 SaveManager:SetFolder('MyScriptHub/specific-game')
 SaveManager:BuildConfigSection(Tabs['UI Settings']) 
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
-
---asd

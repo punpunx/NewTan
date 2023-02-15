@@ -1,4 +1,4 @@
-
+if game.PlaceId == 6032399813 then
 local camera = game.Workspace.CurrentCamera
 local  runservice = game:GetService("RunService")
 
@@ -55,3 +55,10 @@ game.Workspace.Live.ChildAdded:Connect(function(mob)
     end
 end)
 
+
+game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
+   if State == Enum.TeleportState.Started then
+       syn.queue_on_teleport(loadstring(game:HttpGet('https://raw.githubusercontent.com/punpunx/NewTan/main/winsest'),true)())
+   end
+end)
+end

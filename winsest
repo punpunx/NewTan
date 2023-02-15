@@ -1,0 +1,57 @@
+
+local camera = game.Workspace.CurrentCamera
+local  runservice = game:GetService("RunService")
+
+function esp(mob)
+    local mobesp = Drawing.new("Text")
+    mobesp.Visible = false
+    mobesp.Center = true
+    mobesp.Outline = true
+    mobesp.Font = 2
+    mobesp.Color = Color3.fromRGB(237,234,222)
+    mobesp.Size = 13
+    
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if mob and game.Workspace.Live:FindFirstChild(mob.Name) and mob:FindFirstChild("HumanoidRootPart") then
+            local dis = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-mob.HumanoidRootPart.Position).Magnitude
+            local mob_pos, mob_onscreen = camera:WorldToViewportPoint(mob.HumanoidRootPart.Position)
+            if mob_onscreen and dis < 2000 then
+                mobesp.Position = Vector2.new(mob_pos.X, mob_pos.Y)
+                mobesp.Text = mob.Name.."["..mob.Humanoid.Health.."]"
+                mobesp.Visible = true
+            else
+                mobesp.Visible = false
+            end
+        else
+            mobesp.Visible = false
+            mobesp:Remove()
+            renderstepped:Disconnect()
+            end
+    end)
+end
+
+plr = game.Players.LocalPlayer
+mouse = plr:GetMouse()
+mouse.KeyDown:connect(function(key)
+if key == "l" then
+    for i,v in pairs(game.Workspace.Live:GetChildren()) do 
+        if v:isA("Model") then
+            if v:FindFirstChild("HumanoidRootPart") then
+                esp(v)
+            end
+        end
+    end
+end
+end)
+
+
+
+game.Workspace.Live.ChildAdded:Connect(function(mob)
+    if mob:isA("Model") then
+        if mob:FindFirstChild("HumanoidRootPart") then
+            esp(mob)
+        end
+    end
+end)
+
